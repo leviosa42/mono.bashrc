@@ -6,7 +6,6 @@ set -o pipefail
 [[ ! $- =~ 'i' ]] && return 0
 
 function _main() { # {{{
-	# _set_ls_colors
 	_set_alias
 	_set_prompt
 } # }}}
@@ -94,34 +93,34 @@ function _set_prompt() { # {{{
 		fi
 
 		# export PS1="(\s $SHLVL)\[\e[1;33m\]\w\[\e[00m\]\$ "
-		export PS1="${res}(${exitcolor}${shell_name} ${SHLVL}${res}${bg})${yel}\w${res}:\\$ ${bg_a}"
-} # }}}
-
-function _set_ls_colors() { # {{{
-	export LS_COLORS='rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:';
+		export PS1="${res}(${exitcolor}${shell_name} ${SHLVL}${res}${bg})${yel}\w${res}:\\$ "
 } # }}}
 
 function colortheme() { # {{{
 	case $@ in
 		'monokai') # {{{
-			echo -ne '\e]10;#f8f8f2\e\\'; # foreground
-			echo -ne '\e]11;#2e2e2e\e\\'; # background
-			echo -ne '\e]4;00;#1b1d1e\e\\'; # 0:black
-			echo -ne '\e]4;01;#f92672\e\\'; # 1:red
-			echo -ne '\e]4;02;#82b414\e\\'; # 2:green
-			echo -ne '\e]4;03;#fd971f\e\\'; # 3:yellow
-			echo -ne '\e]4;04;#465457\e\\'; # 4:blue
-			echo -ne '\e]4;05;#8c54fe\e\\'; # 5:purple
-			echo -ne '\e]4;06;#56c2df\e\\'; # 6:cyan
-			echo -ne '\e]4;07;#ccccc6\e\\'; # 7:white
-			echo -ne '\e]4;08;#505354\e\\'; # 8:black+
-			echo -ne '\e]4;09;#ff5994\e\\'; # 1:red+
-			echo -ne '\e]4;10;#b6e354\e\\'; # 2:green+
-			echo -ne '\e]4;11;#feed6c\e\\'; # 3:yellow+
-			echo -ne '\e]4;12;#899ca1\e\\'; # 4:blue+
-			echo -ne '\e]4;13;#9e6ffe\e\\'; # 5:purple+
-			echo -ne '\e]4;14;#8cedff\e\\'; # 6:cyan+
-			echo -ne '\e]4;15;#f8f8f2\e\\'; # 7:white+
+			local monokai=$(cat - <<- 'EOF'
+				echo -ne '\e]10;#f8f8f2\e\\'; # foreground
+				echo -ne '\e]11;#2e2e2e\e\\'; # background
+				echo -ne '\e]4;00;#1b1d1e\e\\'; # 0:black
+				echo -ne '\e]4;01;#f92672\e\\'; # 1:red
+				echo -ne '\e]4;02;#82b414\e\\'; # 2:green
+				echo -ne '\e]4;03;#fd971f\e\\'; # 3:yellow
+				echo -ne '\e]4;04;#465457\e\\'; # 4:blue
+				echo -ne '\e]4;05;#8c54fe\e\\'; # 5:purple
+				echo -ne '\e]4;06;#56c2df\e\\'; # 6:cyan
+				echo -ne '\e]4;07;#ccccc6\e\\'; # 7:white
+				echo -ne '\e]4;08;#505354\e\\'; # 8:black+
+				echo -ne '\e]4;09;#ff5994\e\\'; # 1:red+
+				echo -ne '\e]4;10;#b6e354\e\\'; # 2:green+
+				echo -ne '\e]4;11;#feed6c\e\\'; # 3:yellow+
+				echo -ne '\e]4;12;#899ca1\e\\'; # 4:blue+
+				echo -ne '\e]4;13;#9e6ffe\e\\'; # 5:purple+
+				echo -ne '\e]4;14;#8cedff\e\\'; # 6:cyan+
+				echo -ne '\e]4;15;#f8f8f2\e\\'; # 7:white+
+			EOF
+			)
+			echo -e $monokai
 			;; # }}}
 		'ubuntu') # {{{
 			echo -ne '\e]10;#ffffff\e\\' # foreground
@@ -147,78 +146,254 @@ function colortheme() { # {{{
 } # }}}
 
 function _out_vimrc() { # {{{
-	cat - <<- 'EOF'
-		" * PreInit
-		set encoding=utf-8
-		scriptencoding utf-8
-		if &compatible | set nocompatible | endif
-		syntax off
-		filetype off
-		filetype plugin indent off
+	cat - <<- 'VIMRC_EOF'
+	" * Pre Init {{{
+	set encoding=utf-8
+	scriptencoding utf-8
+	if &compatible | set nocompatible | endif
+	syntax off
+	filetype off
+	filetype plugin indent off
 
-		set fileformat=unix
-		set fileformats=unix,dos
-		set clipboard+=unnamed,unnamedplus
+	let $MYVIMRC = expand('<sfile>')
+	set modeline
+	set modelines=2
+	" * }}}
 
-		set hidden
+	" * Editing {{{
+	set fileformat=unix
+	set fileformats=unix,dos
+	set backspace=indent,eol,start
+	"  * }}}
 
-		set incsearch
-		set ignorecase
-		set smartcase
-		set hlsearch
-		set wildmenu
+	" * Indentation {{{
+	set noexpandtab
+	set tabstop=4
+	set softtabstop=-1 shiftwidth=0 " follow tabstop
+	set autoindent
+	set smartindent
+	" * }}}
 
-		set wildmode=longest:list,full
-		set mouse=a
-		set whichwrap=b,s,<,>,[,]
-		set timeout
-		set timeoutlen=2000
-		set ttimeoutlen=-1
+	" * Searching {{{
+	set incsearch " incremental search
+	set ignorecase " ignore case
+	set smartcase " ignore case if search pattern is all lowercase
+	set hlsearch " highlight search results
+	set wildmenu
+	set wildignore+=*/.git/* " ignore .git directory
+	" * * }}}
 
-		set backspace=indent,eol,start
+	" * General {{{
+	set wildmode=longest:list,full " command-line completion mode
+	set mouse=a " enable mouse
+	set clipboard+=unnamed,unnamedplus " use system clipboard
+	set whichwrap=b,s,<,>,[,] " move cursor to next line
+	set timeout
+	set timeoutlen=2000
+	set ttimeoutlen=-1
+	" * }}}
 
-		set noexpandtab
-		set tabstop=4
-		set softtabstop=-1 shiftwidth=0
-		set autoindent
-		set smartindent
-		set number
-		set cursorline
-		set showcmd
-		set showmatch
-		if has('termguicolors') && !has('gui_running')
-		  set termguicolors
-		endif
-		set ambiwidth=single
-
-		set list
-		set listchars=
-		set listchars+=tab:>\ 
-		set listchars+=trail:~
-		set listchars+=nbsp:%
-		"set listchars+=eol:$
+	" * Appearance {{{
+	set number
+	set cursorline
+	set showcmd
+	set showmatch
+	if has('termguicolors') && !has('gui_running')
+		set termguicolors
+	endif
+	set ambiwidth=single
+	" * * listchars {{{
+	set list 
+	set listchars=
+	set listchars+=tab:>\ 
+	set listchars+=trail:~
+	set listchars+=nbsp:%
+	"set listchars+=eol:$
 		set listchars+=extends:»
 		set listchars+=precedes:«
-		"set listchars+=space:·
-
-		set fillchars+=vert:┃ " U+2503
-		set fillchars+=vert:│ " U+2502
+	"set listchars+=space:·
+	" * * }}}
+	" * * fillchars {{{
+	set fillchars+=vert:┃ " U+2503
+	set fillchars+=vert:│ " U+2502
+	if v:version > 800
 		set fillchars+=foldclose:>
 		set fillchars+=foldopen:┌ " U+250C
 		set fillchars+=foldsep:│ " U+2502
 		set fillchars+=eob:\ 
-		
-		set laststatus=2
-		set ruler
-		set showmode
+	endif
+	" * * }}}
+	set laststatus=2
+	set ruler
+	set showmode
+	" * }}}
 
-		syntax enable
-		set background=dark
-		filetype on
-		filetype plugin indent on
-		" vim: ft=vim et ts=2 sts=-1 sw=0 fdm=marker fmr={{{,}}}
-	EOF
+	" * Keymap {{{
+	" * * Misc {{{
+	let g:mapleader = "\<Space>"
+
+	inoremap <silent> jk <Esc>
+
+	" ref: https://github.com/nvim-zh/minimal_vim
+	nnoremap <silent><expr> j (v:count == 0 ? 'gj' : 'j')
+	nnoremap <silent><expr> k (v:count == 0 ? 'gk' : 'k')
+	nnoremap <silent><expr> J (v:count == 0 ? '3gj' : '3j')
+	nnoremap <silent><expr> K (v:count == 0 ? '3gk' : '3k')
+
+	" u <-> U == undo <-> redo
+	nnoremap <silent> U <C-r>
+	nnoremap <silent> <C-r> U
+
+	" Insert hard tab
+	inoremap <S-Tab> <C-v><Tab>
+
+	" Move {cursorline/visual selection} {up/down}
+	nnoremap <silent> <S-Up> "zdd<Up>"zP
+	nnoremap <silent> <S-Down> "zdd"zp
+	vnoremap <silent> <S-Up> "zx<Up>"zP`[V`]
+	vnoremap <silent> <S-Down> "zx"zp`[V`]
+
+	" Do not use resister by x
+	nnoremap x "_x
+	" * * }}}
+	" * * [buffer]: {{{
+	nmap <Leader>b [buffer]
+	nnoremap [buffer] <Nop>
+	nnoremap [buffer]n :<C-u>new<CR>
+	nnoremap [buffer]k :<C-u>bprev<CR>
+	nnoremap [buffer]j :<C-u>bnext<CR>
+	nnoremap [buffer]l :<C-u>ls<CR>
+	nnoremap [buffer]L :<C-u>ls!<CR>
+	" * * }}}
+	" * * [window]: {{{
+	nmap <Leader>w [window]
+	noremap [window] <Nop>
+	nnoremap [window]h <C-w>h
+	nnoremap [window]j <C-w>j
+	nnoremap [window]k <C-w>k
+	nnoremap [window]l <C-w>l
+	nnoremap [window]s :<C-u>split<CR>
+	nnoremap [window]v :<C-u>vsplit<CR>
+	nnoremap [window]o :<C-u>only<CR>
+	" * * }}}
+	" * * [tab]: {{{
+	nmap <Leader>t [tab]
+	nnoremap [tab] <Nop>
+	nnoremap [tab]h :<C-u>tabprevious<CR>
+	nnoremap [tab]l :<C-u>tabnext<CR>
+	nnoremap [tab]n :<C-u>tabnew<CR>
+	" * * }}}
+	" * * [terminal]: {{{
+	nmap <Leader>x [terminal]
+	nnoremap [terminal] <Nop>
+	nnoremap [terminal]x :<C-u>terminal ++curwin<CR>
+	nnoremap [terminal]h :<C-u>vertical aboveleft terminal<CR>
+	nnoremap [terminal]j :<C-u>rightbelow terminal<CR>
+	nnoremap [terminal]k :<C-u>aboveleft terminal<CR>
+	nnoremap [terminal]l :<C-u>vertical rightbelow terminal<CR>
+	nnoremap [terminal]H :<C-u>vertical topleft terminal<CR>
+	nnoremap [terminal]J :<C-u>botright terminal<CR>
+	nnoremap [terminal]K :<C-u>topleft terminal<CR>
+	nnoremap [terminal]L :<C-u>vertical botright terminal<CR>
+	nnoremap [terminal]t :<C-u>tab terminal<CR>
+
+	" ref: https://qiita.com/gorilla0513/items/f59e54606f6f4d7e3514
+	command! Terminal call popup_create(term_start([&shell], #{ hidden: 1, term_finish: 'close'}), #{ border: [], minwidth: winwidth(0)/2, minheight: &lines/2 })
+	nnoremap [terminal]p :<C-u>Terminal<CR>
+	" * * }}}
+	" * * [setting]: {{{
+	nmap <Leader>v [vimrc]
+	nnoremap [vimrc] <Nop>
+	nnoremap [vimrc]s :<C-u>source $MYVIMRC<CR>
+	nnoremap [vimrc]e :<C-u>edit $MYVIMRC<CR>
+	nnoremap [vimrc]t :<C-u>tabnew $MYVIMRC<CR>
+	" * * }}}
+	" * * [comment]: {{{
+	function! InsertCommentString()
+		let line = getline('.')
+		let lineNum = line('.')
+		call setline(lineNum, printf(&cms, line))
+	endfunction
+
+	function! CommentIn() abort
+		" ref: https://vim-jp.org/vim-users-jp/2009/09/20/Hack-75.html
+		" \%(^\s*\|^\t*\)\@<=\S
+		let l = getline('.')
+		if l == ''
+			call setline(line('.'), printf(&cms, ''))
+		else
+			call setline(line('.'), substitute(getline('.'), '\%(^\s*\|^\t*\)\@<=\(\S.*\)', printf(&cms, '\1'), ''))
+			"echo substitute(getline('.'), '\%(^\s*\|^\t*\)\@<=\(\S.*\)', '" \1', '')
+		endif
+	endfunction
+
+	function CommentOut() abort
+		let l = getline('.')
+		if l == printf(&cms, '')
+			call setline(line('.'), '')
+		else
+			"echo substitute(getline('.'), printf(&cms, ''), '', '')
+			call setline(line('.'), substitute(getline('.'), printf(&cms, ''), '', ''))
+		endif
+	endfunction
+
+	nmap <Leader>c [comment]
+	nnoremap [comment] <Nop>
+	nnoremap [comment]i :call CommentIn()<CR>
+	nnoremap [comment]o :call CommentOut()<CR>
+	"nnoremap <expr>[comment] I<C-r>=printf(&cms, '')<CR><Esc>
+	" * * }}}
+	" * * command-line: {{{
+	cnoremap <C-p> <Up>
+	cnoremap <C-n> <Down>
+	cnoremap <C-b> <Left>
+	cnoremap <C-f> <Right>
+	cnoremap <C-a> <Home>
+	cnoremap <C-e> <End>
+	cnoremap <C-d> <Del>
+	" * * }}}
+	" * }}}
+
+	" * Post Init {{{
+	syntax enable
+	set background=dark
+	filetype on
+	filetype plugin indent on
+	" * }}}
+	" vim: ft=vim et ts=2 sts=-1 sw=0 fdm=marker fmr={{{,}}}
+	VIMRC_EOF
 } # }}}
 
+function osc() { # {{{
+  # Usage:
+  #   osc <sequence_number> <text>
+  # Example:
+  #   osc 1 'This is title' # == printf "\033]1;This is title\033\\"
+	[[ $1 =~ 'd' ]] && set -x
+  local IFS=';'
+  printf "\033]$*\033\\"
+	[[ $1 =~ 'd' ]] && set +x
+	
+  return 0
+} # }}}
+
+function colortest() { # {{{
+# https://tldp.org/HOWTO/Bash-Prompt-HOWTO/x329.html
+  local T='gYw' # The test text
+  echo -e "\n                 40m     41m     42m     43m\
+       44m     45m     46m     47m";
+
+  for FGs in '    m' '   1m' '  30m' '1;30m' '  31m' '1;31m' '  32m' \
+             '1;32m' '  33m' '1;33m' '  34m' '1;34m' '  35m' '1;35m' \
+             '  36m' '1;36m' '  37m' '1;37m';
+    do FG=${FGs// /}
+    echo -en " $FGs \033[$FG  $T  "
+    for BG in 40m 41m 42m 43m 44m 45m 46m 47m;
+      do echo -en "$EINS \033[$FG\033[$BG  $T  \033[0m";
+    done
+    echo;
+  done
+  echo
+} # }}}
 _main
 # vim: ft=sh noet ts=2 sts=-1 sw=0 fdm=marker fmr={{{,}}}
